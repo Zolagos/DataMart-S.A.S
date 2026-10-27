@@ -1,0 +1,85 @@
+name: datamart
+
+x-airflow: &airflow
+  build: { context: ., dockerfile: docker/Dockerfile }
+  image: datamart-airflow
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER}:${AIRFLOW_DB_PASSWORD}@postgres-airflow:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+    AIRFLOW__CORE__TEST_CONNECTION: Enabled
+    AIRFLOW_ADMIN_USER: ${AIRFLOW_ADMIN_USER}
+    AIRFLOW_ADMIN_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD}
+    DW_DB: ${DW_DB}
+    DW_USER: ${DW_USER}
+    DW_PASSWORD: ${DW_PASSWORD}
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./data:/opt/airflow/data          
+    - ./config:/opt/airflow/config
+    - ./scripts:/opt/airflow/scripts
+    - ./docs:/opt/airflow/docs
+    - ./docker/init_airflow.sh:/opt/airflow/init_airflow.sh
+    - airflow-logs:/opt/airflow/logs    
+
+services:
+  postgres-airflow:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${AIRFLOW_DB_USER}
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD}
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${AIRFLOW_DB_USER} -d airflow"]
+      interval: 5s
+      retries: 20
+
+  postgres-dw:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${DW_USER}
+      POSTGRES_PASSWORD: ${DW_PASSWORD}
+      POSTGRES_DB: ${DW_DB}
+    volumes:
+      - dw-db:/var/lib/postgresql/data
+      - ./sql/01_crear_tablas.sql:/docker-entrypoint-initdb.d/01_crear_tablas.sql  
+      - ./sql:/sql                                                                  
+    ports:
+      - "${DW_HOST_PORT:-5435}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DW_USER} -d ${DW_DB}"]
+      interval: 5s
+      retries: 20
+
+  airflow-init:
+    <<: *airflow
+    entrypoint: /bin/bash
+    command: ["-c", "tr -d '\\r' < /opt/airflow/init_airflow.sh > /tmp/init.sh && bash /tmp/init.sh"]
+    depends_on:
+      postgres-airflow: { condition: service_healthy }
+      postgres-dw: { condition: service_healthy }
+
+  airflow-webserver:
+    <<: *airflow
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      airflow-init: { condition: service_completed_successfully }
+
+  airflow-scheduler:
+    <<: *airflow
+    command: scheduler
+    restart: always
+    depends_on:
+      airflow-init: { condition: service_completed_successfully }
+
+volumes:
+  airflow-db:
+  dw-db:
+  airflow-logs:

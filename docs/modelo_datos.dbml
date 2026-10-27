@@ -1,0 +1,62 @@
+// Modelo del repositorio analítico de DataMart. Pégalo en https://dbdiagram.io/d para ver el diagrama.
+
+Table dw.dim_producto {
+  codigo text [pk, note: 'mayúsculas, sin espacios']
+  descripcion text [note: 'nombre canónico: la escritura más frecuente']
+  categoria text
+  variantes_escritura integer
+  variantes_descripcion integer
+}
+
+Table dw.fact_ventas {
+  fuente text [pk, note: 'ventas_diarias | historial']
+  fila_origen integer [pk, note: 'línea del CSV']
+  factura text
+  fecha_utc timestamptz
+  codigo text [ref: > dw.dim_producto.codigo]
+  cliente text [note: 'NULL = sin CustomerID']
+  cliente_identificado boolean
+  pais text
+  cantidad integer [note: '> 0']
+  precio numeric [note: '> 0']
+  revenue_bruto numeric [note: 'cantidad x precio']
+}
+
+Table dw.fact_devoluciones {
+  fuente text [pk]
+  fila_origen integer [pk]
+  factura text
+  tipo text [note: 'devolucion | ajuste_inventario']
+  fecha_utc timestamptz
+  codigo text [ref: > dw.dim_producto.codigo]
+  cliente text
+  cliente_identificado boolean
+  pais text
+  cantidad integer [note: '<= 0']
+  precio numeric
+  monto_devuelto numeric
+}
+
+Table dw.revenue_producto_dia {
+  fecha date [pk]
+  codigo text [pk, ref: > dw.dim_producto.codigo]
+  unidades_vendidas integer
+  revenue_bruto numeric
+  unidades_devueltas integer
+  monto_devuelto numeric
+  revenue_neto numeric [note: 'bruto - devoluciones del mismo producto y día']
+}
+
+Table audit.rechazos {
+  fuente text [pk]
+  fila_origen integer [pk]
+  motivo text
+  factura text
+  codigo text
+  descripcion text
+  cantidad text
+  fecha text
+  precio text
+  cliente text
+  pais text
+}

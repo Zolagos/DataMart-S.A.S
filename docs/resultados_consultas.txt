@@ -1,0 +1,176 @@
+﻿=== P1. Evoluci├│n mensual de las ventas netas (descontando devoluciones)
+   mes   | revenue_bruto | devoluciones | revenue_neto 
+---------+---------------+--------------+--------------
+ 2010-12 |     775572.23 |     17547.86 |    758024.37
+ 2011-01 |     670361.99 |     91525.05 |    578836.94
+ 2011-02 |     507783.42 |      8335.52 |    499447.90
+ 2011-03 |     689708.49 |     10504.30 |    679204.19
+ 2011-04 |     515354.78 |     33316.06 |    482038.72
+ 2011-05 |     739914.35 |      8948.23 |    730966.12
+ 2011-06 |     737558.98 |     13713.84 |    723845.14
+ 2011-07 |     688144.79 |     11407.26 |    676737.53
+ 2011-08 |     724196.76 |     22926.57 |    701270.19
+ 2011-09 |    1028313.80 |     16980.64 |   1011333.16
+ 2011-10 |    1103310.96 |     41613.03 |   1061697.93
+ 2011-11 |    1452112.69 |     24991.44 |   1427121.25
+ 2011-12 |     614487.63 |    174091.36 |    440396.27
+ 2018-12 |      17978.50 |       213.60 |     17764.90
+ 2019-01 |      23497.66 |       307.79 |     23189.87
+ 2019-02 |      11740.94 |       133.44 |     11607.50
+ 2019-03 |      19568.70 |         0.00 |     19568.70
+ 2019-04 |       8650.04 |        10.81 |      8639.23
+ 2019-05 |      12181.82 |        51.25 |     12130.57
+ 2019-06 |      20111.64 |      2472.25 |     17639.39
+ 2019-07 |       9448.98 |      8842.00 |       606.98
+ 2019-08 |      21136.08 |      3923.18 |     17212.90
+ 2019-09 |      19479.45 |        28.18 |     19451.27
+ 2019-10 |      11459.44 |       359.53 |     11099.91
+ 2019-11 |     101128.68 |       460.05 |    100668.63
+ 2019-12 |       4186.06 |      3342.60 |       843.46
+(26 rows)
+
+=== P2. Categor├¡as: revenue bruto y proporci├│n de devoluciones
+  categoria  | revenue_bruto | monto_devuelto | pct_devolucion 
+-------------+---------------+----------------+----------------
+ Hogar       |    4907507.98 |      208801.93 |           4.25
+ Otros       |    2504795.79 |       69829.94 |           2.79
+ Ropa        |    1252424.24 |       24231.68 |           1.93
+ Papeler├¡a   |     976311.85 |      178287.69 |          18.26
+ Deportes    |     445980.53 |        5355.84 |           1.20
+ Electr├│nica |     440368.47 |        9538.76 |           2.17
+(6 rows)
+
+=== P3a. Top 10 productos por revenue neto
+ codigo |            descripcion             | revenue_neto 
+--------+------------------------------------+--------------
+ 22423  | REGENCY CAKESTAND 3 TIER           |    164578.43
+ 85123A | WHITE HANGING HEART T-LIGHT HOLDER |     99831.93
+ 47566  | PARTY BUNTING                      |     98422.76
+ 85099B | JUMBO BAG RED RETROSPOT            |     92196.31
+ 84826  | ASSTD DESIGN 3D PAPER STICKERS     |     77960.98
+ 23084  | RABBIT NIGHT LIGHT                 |     66681.25
+ 22086  | PAPER CHAIN KIT 50'S CHRISTMAS     |     63721.43
+ 21171  | BATHROOM METAL SIGN                |     60050.26
+ 84879  | ASSORTED COLOUR BIRD ORNAMENT      |     59175.78
+ 79321  | CHILLI LIGHTS                      |     53790.18
+(10 rows)
+
+=== P3b. Top 10 productos con mayor tasa de devoluci├│n (m├¡nimo 100 unidades vendidas)
+ codigo |             descripcion             | vendidas | devueltas | tasa_devolucion_pct 
+--------+-------------------------------------+----------+-----------+---------------------
+ 23843  | PAPER CRAFT , LITTLE BIRDIE         |    80995 |     80995 |              100.00
+ 84347  | ROTATING SILVER ANGELS T-LIGHT HLDR |     9471 |      9376 |               99.00
+ 23166  | MEDIUM CERAMIC TOP STORAGE JAR      |    78033 |     74494 |               95.46
+ 85232B | SET OF 3 BABUSHKA STACKING TINS     |      274 |       255 |               93.07
+ 23113  | PANTRY CHOPPING BOARD               |     1154 |       946 |               81.98
+ 23055  | IVORY CHANDELIER T-LIGHT HOLDER     |      753 |       432 |               57.37
+ 47566B | TEA TIME PARTY BUNTING              |     2578 |      1424 |               55.24
+ 23056  | FLOWERS CHANDELIER T-LIGHT HOLDER   |     1059 |       579 |               54.67
+ 23057  | BEADED CHANDELIER T-LIGHT HOLDER    |      869 |       433 |               49.83
+ 22920  | HERB MARKER BASIL                   |     3423 |      1527 |               44.61
+(10 rows)
+
+=== P4. Pa├¡ses: transacciones y ticket promedio (transacci├│n = factura de venta)
+         pais         | transacciones | pct_transacciones | ticket_promedio 
+----------------------+---------------+-------------------+-----------------
+ United Kingdom       |         17926 |             90.42 |          500.58
+ Germany              |           449 |              2.26 |          466.61
+ France               |           393 |              1.98 |          474.16
+ Ireland              |           283 |              1.43 |          998.00
+ Belgium              |           100 |              0.50 |          376.71
+ Netherlands          |            94 |              0.47 |         3082.91
+ Spain                |            88 |              0.44 |          634.56
+ Australia            |            57 |              0.29 |         2487.39
+ Portugal             |            53 |              0.27 |          516.72
+ Switzerland          |            51 |              0.26 |         1046.44
+ Finland              |            40 |              0.20 |          471.36
+ Italy                |            35 |              0.18 |          452.01
+ Sweden               |            34 |              0.17 |         1083.20
+ Norway               |            32 |              0.16 |         1025.02
+ Channel Islands      |            25 |              0.13 |          799.90
+ Japan                |            19 |              0.10 |         1969.28
+ Poland               |            19 |              0.10 |          403.64
+ Denmark              |            18 |              0.09 |         1011.74
+ Austria              |            18 |              0.09 |          488.50
+ Cyprus               |            14 |              0.07 |          955.77
+ Sin especificar      |            13 |              0.07 |          364.69
+ Israel               |             8 |              0.04 |         1045.63
+ Iceland              |             8 |              0.04 |          542.88
+ Hong Kong            |             7 |              0.04 |         1392.03
+ United States        |             5 |              0.03 |          716.08
+ Greece               |             5 |              0.03 |          885.10
+ Malta                |             5 |              0.03 |          414.12
+ Canada               |             5 |              0.03 |          687.66
+ Singapore            |             4 |              0.02 |         2280.10
+ Lithuania            |             4 |              0.02 |          415.27
+ Bahrain              |             3 |              0.02 |          251.38
+ European Community   |             3 |              0.02 |          386.42
+ United Arab Emirates |             2 |              0.01 |          932.39
+ Czech Republic       |             2 |              0.01 |          393.37
+ Lebanon              |             1 |              0.01 |         1693.88
+ South Africa         |             1 |              0.01 |         1002.31
+ Brazil               |             1 |              0.01 |         1143.60
+ Saudi Arabia         |             1 |              0.01 |          145.92
+(38 rows)
+
+=== P5. Clientes identificados vs transacciones sin CustomerID
+     grupo      | facturas | pct_facturas | pct_revenue | ticket_promedio | productos_por_factura 
+----------------+----------+--------------+-------------+-----------------+-----------------------
+ Con CustomerID |    18813 |         93.2 |        85.7 |          479.33 |                  20.9
+ Sin CustomerID |     1372 |          6.8 |        14.3 |         1100.35 |                  95.7
+(2 rows)
+
+=== P6a. Productos sin descripci├│n consistente (m├ís de un texto para el mismo c├│digo)
+ codigo |           nombre_canonico           | variantes_escritura | variantes_descripcion 
+--------+-------------------------------------+---------------------+-----------------------
+ 23196  | VINTAGE LEAF MAGNETIC NOTEPAD       |                   5 |                     4
+ 23236  | STORAGE TIN VINTAGE DOILY           |                   4 |                     4
+ 17107D | FLOWER FAIRY,5 SUMMER B'DRAW LINERS |                   4 |                     3
+ 22776  | SWEETHEART CAKESTAND 3 TIER         |                   3 |                     3
+ 22937  | BAKING MOULD CHOCOLATE CUPCAKES     |                   3 |                     3
+ 23126  | FELTCRAFT GIRL AMELIE KIT           |                   4 |                     3
+ 23131  | MISTLETOE HEART WREATH CREAM        |                   3 |                     3
+ 23203  | JUMBO BAG VINTAGE DOILY             |                   4 |                     3
+ 23209  | LUNCH BAG VINTAGE DOILY             |                   3 |                     3
+ 23231  | WRAP DOILEY DESIGN                  |                   3 |                     3
+ 23244  | ROUND STORAGE TIN VINTAGE LEAF      |                   3 |                     3
+ 23366  | SET 12 COLOURING PENCILS DOILY      |                   3 |                     3
+ 23370  | SET 36 COLOURING PENCILS DOILY      |                   3 |                     3
+ 23396  | LE JARDIN BOTANIQUE CUSHION COVER   |                   4 |                     3
+ 23413  | VINTAGE COFFEE GRINDER BOX          |                   3 |                     3
+ 23535  | WALL ART BICYCLE SAFETY             |                   3 |                     3
+ 16156L | WRAP CAROUSEL                       |                   2 |                     2
+ 20622  | VIPPASSPORT COVER                   |                   2 |                     2
+ 20725  | LUNCH BAG RED RETROSPOT             |                   3 |                     2
+ 20727  | LUNCH BAG BLACK SKULL.              |                   2 |                     2
+(20 rows)
+
+=== P6b. C├│digos ├║nicos de producto en total y cu├íntos tienen descripci├│n inconsistente
+ codigos_unicos | con_varias_escrituras | con_textos_distintos 
+----------------+-----------------------+----------------------
+           3912 |                   682 |                  214
+(1 row)
+
+=== P7. Base para la recomendaci├│n: productos que m├ís dinero devuelven
+ codigo |            descripcion             | categoria | monto_devuelto | pct_del_total_devuelto | pct_devolucion 
+--------+------------------------------------+-----------+----------------+------------------------+----------------
+ 23843  | PAPER CRAFT , LITTLE BIRDIE        | Papeler├¡a |      168469.60 |                  33.96 |         100.00
+ 23166  | MEDIUM CERAMIC TOP STORAGE JAR     | Hogar     |       77479.64 |                  15.62 |          94.83
+ 22423  | REGENCY CAKESTAND 3 TIER           | Hogar     |        9697.05 |                   1.95 |           5.56
+ 85123A | WHITE HANGING HEART T-LIGHT HOLDER | Hogar     |        6624.30 |                   1.34 |           6.22
+ 21108  | FAIRY CAKE FLANNEL ASSORTED COLOUR | Hogar     |        6591.42 |                   1.33 |          36.50
+ 46000S | POLYESTER FILLER PAD 40X40CM       | Otros     |        5815.80 |                   1.17 |          93.00
+ 23113  | PANTRY CHOPPING BOARD              | Otros     |        4803.06 |                   0.97 |          81.84
+ 48185  | DOORMAT FAIRY CAKE                 | Hogar     |        4554.90 |                   0.92 |          19.08
+ 46000M | POLYESTER FILLER PAD 45X45CM       | Otros     |        3947.15 |                   0.80 |         108.66
+ 21175  | GIN + TONIC DIET METAL SIGN        | Hogar     |        3775.33 |                   0.76 |          13.97
+(10 rows)
+
+=== Validaci├│n: rechazos por fuente y motivo
+     fuente     |        motivo         | registros 
+----------------+-----------------------+-----------
+ ventas_diarias | codigo_no_es_producto |      2969
+ ventas_diarias | venta_con_precio_cero |      1174
+ ventas_diarias | precio_negativo       |         2
+(3 rows)
+

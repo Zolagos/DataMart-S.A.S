@@ -1,0 +1,11 @@
+# contraseñas
+.env
+# entornos virtuales de Python
+.venv/
+env/
+venv/
+# archivos intermedios que genera el pipeline
+data/trabajo/
+logs/
+__pycache__/
+*.pycdocker-compose.yml

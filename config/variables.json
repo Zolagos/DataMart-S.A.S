@@ -1,0 +1,9 @@
+{
+  "datamart_ruta_datos": "/opt/airflow/data/raw",
+  "datamart_archivo_ventas_diarias": "data.csv",
+  "datamart_archivo_historial": "Sales Transaction v.4a.csv",
+  "datamart_formato_fecha_ventas_diarias": "%m/%d/%Y %H:%M",
+  "datamart_formato_fecha_historial": "%m/%d/%Y",
+  "datamart_zona_horaria": "Europe/London",
+  "datamart_umbral_rechazo": "0.05"
+}
